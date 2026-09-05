@@ -6,4 +6,5 @@ __pycache__/
 adapters/checkpoints/
 exports/fused/
 exports/merged_hf/
+logs/
 .DS_Store
