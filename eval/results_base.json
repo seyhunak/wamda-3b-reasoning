@@ -1,0 +1,92 @@
+[
+ {
+  "q": "كم يساوي 47 × 36؟",
+  "expected": "1692",
+  "hit": true,
+  "output_tail": "RuntimeWarning: 'mlx_lm.generate' found in sys.modules after import of package 'mlx_lm', but prior to execution of 'mlx_lm.generate'; this may result in unpredictable behaviour\n\nFetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]\nFetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 2822.12it/s]\n"
+ },
+ {
+  "q": "عند أحمد 24 تفاحة، أعطى نصفها لصديقه ثم اشترى 10 تفاحات إضافية. كم تفاحة أصبح عنده؟",
+  "expected": "22",
+  "hit": true,
+  "output_tail": "RuntimeWarning: 'mlx_lm.generate' found in sys.modules after import of package 'mlx_lm', but prior to execution of 'mlx_lm.generate'; this may result in unpredictable behaviour\n\nFetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]\nFetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 3478.83it/s]\n"
+ },
+ {
+  "q": "قطار يسير بسرعة 80 كم/سا، كم يستغرق ليقطع 240 كم؟",
+  "expected": "3",
+  "hit": true,
+  "output_tail": "RuntimeWarning: 'mlx_lm.generate' found in sys.modules after import of package 'mlx_lm', but prior to execution of 'mlx_lm.generate'; this may result in unpredictable behaviour\n\nFetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]\nFetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 3284.78it/s]\n"
+ },
+ {
+  "q": "إذا كان طبيب يعطيك 3 حبوب وطلب منك أخذ حبة كل نصف ساعة، فكم من الوقت تستغرق حتى تنهي الحبوب؟",
+  "expected": "ساعة واحدة",
+  "hit": false,
+  "output_tail": "RuntimeWarning: 'mlx_lm.generate' found in sys.modules after import of package 'mlx_lm', but prior to execution of 'mlx_lm.generate'; this may result in unpredictable behaviour\n\nFetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]\nFetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 3256.17it/s]\n"
+ },
+ {
+  "q": "كم عدد الأشهر التي فيها 28 يوماً؟",
+  "expected": "12",
+  "hit": true,
+  "output_tail": "RuntimeWarning: 'mlx_lm.generate' found in sys.modules after import of package 'mlx_lm', but prior to execution of 'mlx_lm.generate'; this may result in unpredictable behaviour\n\nFetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]\nFetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 3380.99it/s]\n"
+ },
+ {
+  "q": "اشترى أحمد 3 صناديق من التفاح، يحتوي كل صندوق على 24 تفاحة. إذا تبرع بنصف التفاح، وباع ثلث ما تبقى بسعر 1.5 ريال للتفاحة، كم ريالاً جنى؟",
+  "expected": "18",
+  "hit": false,
+  "output_tail": "RuntimeWarning: 'mlx_lm.generate' found in sys.modules after import of package 'mlx_lm', but prior to execution of 'mlx_lm.generate'; this may result in unpredictable behaviour\n\nFetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]\nFetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 3634.93it/s]\n"
+ },
+ {
+  "q": "عمر سارة الآن ثلاثة أضعاف عمر أخيها الصغير. بعد 5 سنوات، سيكون مجموع عمريهما 38 سنة. كم عمر سارة الآن؟",
+  "expected": "21",
+  "hit": false,
+  "output_tail": "RuntimeWarning: 'mlx_lm.generate' found in sys.modules after import of package 'mlx_lm', but prior to execution of 'mlx_lm.generate'; this may result in unpredictable behaviour\n\nFetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]\nFetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 2613.09it/s]\n"
+ },
+ {
+  "q": "لابتوب سعره الأصلي 4000 ريال، عليه خصم 20%. ثم ضريبة قيمة مضافة 15% بعد الخصم. ما السعر النهائي؟",
+  "expected": "3680",
+  "hit": false,
+  "output_tail": "RuntimeWarning: 'mlx_lm.generate' found in sys.modules after import of package 'mlx_lm', but prior to execution of 'mlx_lm.generate'; this may result in unpredictable behaviour\n\nFetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]\nFetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 2462.41it/s]\n"
+ },
+ {
+  "q": "تكلفة الكوب 5 دولارات، وكل كوب ثانٍ بـ 60٪ من السعر. كم يدفع من يشتري 16 كوبًا؟",
+  "expected": "64",
+  "hit": true,
+  "output_tail": "RuntimeWarning: 'mlx_lm.generate' found in sys.modules after import of package 'mlx_lm', but prior to execution of 'mlx_lm.generate'; this may result in unpredictable behaviour\n\nFetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]\nFetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 3063.27it/s]\n"
+ },
+ {
+  "q": "في سباق جري، أنهى خالد السباق قبل سعد ولكن بعد فيصل. وأنهى ماجد السباق قبل فيصل. ما الترتيب من الأول إلى الأخير؟",
+  "expected": "ماجد",
+  "hit": true,
+  "output_tail": "RuntimeWarning: 'mlx_lm.generate' found in sys.modules after import of package 'mlx_lm', but prior to execution of 'mlx_lm.generate'; this may result in unpredictable behaviour\n\nFetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]\nFetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 3315.95it/s]\n"
+ },
+ {
+  "q": "كم يساوي 13 × 17؟",
+  "expected": "221",
+  "hit": true,
+  "output_tail": "RuntimeWarning: 'mlx_lm.generate' found in sys.modules after import of package 'mlx_lm', but prior to execution of 'mlx_lm.generate'; this may result in unpredictable behaviour\n\nFetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]\nFetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 4644.28it/s]\n"
+ },
+ {
+  "q": "مزرعة فيها 45 خروفًا، باع صاحبها ثلثها ثم اشترى 10 خراف. كم خروفًا أصبح عنده؟",
+  "expected": "40",
+  "hit": true,
+  "output_tail": "RuntimeWarning: 'mlx_lm.generate' found in sys.modules after import of package 'mlx_lm', but prior to execution of 'mlx_lm.generate'; this may result in unpredictable behaviour\n\nFetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]\nFetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 3813.77it/s]\n"
+ },
+ {
+  "q": "سيارة تسير بسرعة 100 كم/سا، كم تقطع في 3 ساعات؟",
+  "expected": "300",
+  "hit": true,
+  "output_tail": "RuntimeWarning: 'mlx_lm.generate' found in sys.modules after import of package 'mlx_lm', but prior to execution of 'mlx_lm.generate'; this may result in unpredictable behaviour\n\nFetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]\nFetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 2566.02it/s]\n"
+ },
+ {
+  "q": "قميص سعره 200 ريال عليه خصم 25%. ما السعر بعد الخصم؟",
+  "expected": "150",
+  "hit": true,
+  "output_tail": "RuntimeWarning: 'mlx_lm.generate' found in sys.modules after import of package 'mlx_lm', but prior to execution of 'mlx_lm.generate'; this may result in unpredictable behaviour\n\nFetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]\nFetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 3104.59it/s]\n"
+ },
+ {
+  "q": "نصف العدد 50 مضافًا إليه 10 يساوي كم؟",
+  "expected": "35",
+  "hit": true,
+  "output_tail": "RuntimeWarning: 'mlx_lm.generate' found in sys.modules after import of package 'mlx_lm', but prior to execution of 'mlx_lm.generate'; this may result in unpredictable behaviour\n\nFetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]\nFetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 3052.62it/s]\n"
+ }
+]

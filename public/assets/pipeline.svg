@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="210" role="img" aria-label="Wamda-3B pipeline diagram">
+  <rect width="100%" height="100%" fill="#0d1117" rx="12"/>
+  <text x="24" y="30" fill="#e6edf3" font-family="sans-serif" font-size="16" font-weight="bold">Wamda-3B pipeline</text>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8" fill="none" stroke="#8b949e" stroke-width="1.5"/>
+    </marker>
+  </defs>
+  <g font-family="sans-serif" font-size="12">
+    <rect x="24" y="60" width="150" height="110" rx="10" fill="#161b22" stroke="#f0b429" stroke-width="1.5"/>
+    <text x="99" y="86" fill="#f0b429" text-anchor="middle" font-weight="bold">1 · Dataset</text>
+    <text x="99" y="106" fill="#e6edf3" text-anchor="middle">300 train / 40 valid</text>
+    <text x="99" y="124" fill="#8b949e" text-anchor="middle">verified AR traces</text>
+    <text x="99" y="142" fill="#8b949e" text-anchor="middle">build_dataset.py</text>
+    <line x1="174" y1="115" x2="206" y2="115" stroke="#8b949e" stroke-width="1.5" marker-end="url(#arrow)"/>
+    <rect x="206" y="60" width="150" height="110" rx="10" fill="#161b22" stroke="#1f6feb" stroke-width="1.5"/>
+    <text x="281" y="86" fill="#79c0ff" text-anchor="middle" font-weight="bold">2 · LoRA SFT</text>
+    <text x="281" y="106" fill="#e6edf3" text-anchor="middle">Qwen2.5-3B-Ins</text>
+    <text x="281" y="124" fill="#8b949e" text-anchor="middle">16 layers · 6.65M</text>
+    <text x="281" y="142" fill="#8b949e" text-anchor="middle">MLX · mask-prompt</text>
+    <line x1="356" y1="115" x2="388" y2="115" stroke="#8b949e" stroke-width="1.5" marker-end="url(#arrow)"/>
+    <rect x="388" y="60" width="150" height="110" rx="10" fill="#161b22" stroke="#3fb950" stroke-width="1.5"/>
+    <text x="463" y="86" fill="#3fb950" text-anchor="middle" font-weight="bold">3 · Adapter</text>
+    <text x="463" y="106" fill="#e6edf3" text-anchor="middle">26.6 MB</text>
+    <text x="463" y="124" fill="#8b949e" text-anchor="middle">600 iters · ckpts/100</text>
+    <text x="463" y="142" fill="#8b949e" text-anchor="middle">adapters/</text>
+    <line x1="538" y1="115" x2="570" y2="115" stroke="#8b949e" stroke-width="1.5" marker-end="url(#arrow)"/>
+    <rect x="570" y="60" width="166" height="110" rx="10" fill="#161b22" stroke="#a371f7" stroke-width="1.5"/>
+    <text x="653" y="86" fill="#a371f7" text-anchor="middle" font-weight="bold">4 · Eval</text>
+    <text x="653" y="106" fill="#e6edf3" text-anchor="middle">13/15 = 86.7%</text>
+    <text x="653" y="124" fill="#8b949e" text-anchor="middle">base 11/15 = 73.3%</text>
+    <text x="653" y="142" fill="#8b949e" text-anchor="middle">eval/</text>
+  </g>
+</svg>
