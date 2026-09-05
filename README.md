@@ -25,6 +25,7 @@ license: apache-2.0
 <p align="center">
   <a href="https://github.com/seyhunak/wamda-3b-reasoning"><img src="https://img.shields.io/badge/GitHub-seyhunak%2Fwamda--3b--reasoning-181717?logo=github" alt="GitHub repo" /></a>
   <a href="https://huggingface.co/seyhunak/Wamda-3B-Reasoning"><img src="https://img.shields.io/badge/%F0%9F%A4%97_Hugging_Face-seyhunak%2FWamda--3B--Reasoning-ff9d0a" alt="Hugging Face model" /></a>
+  <a href="https://ollama.com/seyhunak/wamda-3b-reasoning"><img src="https://img.shields.io/badge/Ollama-seyhunak%2Fwamda--3b--reasoning-000000?logo=ollama" alt="Ollama registry" /></a>
 </p>
 
 A small Arabic reasoning model: **Qwen2.5-3B-Instruct** fine-tuned with LoRA to reason
@@ -271,6 +272,8 @@ ollama create wamda-3b -f Modelfile
 ollama run wamda-3b
 # single shot:
 echo "كم يساوي 47 × 36؟" | ollama run wamda-3b
+# or pull the published copy (no build needed):
+ollama pull seyhunak/wamda-3b-reasoning
 ```
 
 The `Modelfile` pins the Qwen ChatML template with the Arabic system prompt and
