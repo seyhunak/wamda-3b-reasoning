@@ -1,0 +1,16 @@
+# Wamda-3B-Reasoning — Ollama Modelfile
+# Usage: ollama create wamda-3b -f Modelfile
+FROM ./exports/wamda-3b-q4_k_m.gguf
+
+TEMPLATE """<|im_start|>system
+أنت مساعد رياضيات بارع. فكّر خطوة بخطوة داخل <think> قبل إعطاء الإجابة النهائية.<|im_end|>
+{{ range .Messages }}<|im_start|>{{ .Role }}
+{{ .Content }}<|im_end|>
+{{ end }}<|im_start|>assistant
+<think>
+"""
+
+SYSTEM """أنت مساعد رياضيات بارع. فكّر خطوة بخطوة داخل <think> قبل إعطاء الإجابة النهائية."""
+
+PARAMETER temperature 0
+PARAMETER num_ctx 4096

@@ -2,5 +2,8 @@
 __pycache__/
 *.safetensors
 *.npz
+*.gguf
 adapters/checkpoints/
+exports/fused/
+exports/merged_hf/
 .DS_Store

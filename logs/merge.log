@@ -1,0 +1,17 @@
+loading base Qwen/Qwen2.5-3B-Instruct
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/434 [00:00<?, ?it/s]Loading weights:  26%|██▌       | 111/434 [00:00<00:00, 1075.37it/s]Loading weights:  51%|█████     | 221/434 [00:00<00:00, 1069.18it/s]Loading weights:  76%|███████▌  | 328/434 [00:00<00:00, 913.55it/s] Loading weights:  97%|█████████▋| 422/434 [00:00<00:00, 494.81it/s]Loading weights: 100%|██████████| 434/434 [00:00<00:00, 591.83it/s]
+adapter loaded: 224 tensors
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|██████████| 1/1 [00:03<00:00,  3.84s/it]Writing model shards: 100%|██████████| 1/1 [00:03<00:00,  3.84s/it]
+saved merged model to ./exports/merged_hf
+Traceback (most recent call last):
+  File "/Users/seyhunakyurek/Projects/wamda-3b-reasoning/scripts/merge_lora.py", line 79, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/Users/seyhunakyurek/Projects/wamda-3b-reasoning/scripts/merge_lora.py", line 67, in main
+    fused = load_file("./exports/fused/weights.safetensors")
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/seyhunakyurek/Projects/wamda-3b-reasoning/.venv/lib/python3.11/site-packages/safetensors/numpy.py", line 150, in load_file
+    with safe_open(filename, framework="np", backend=backend) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: No such file or directory: ./exports/fused/weights.safetensors

@@ -1,0 +1,12 @@
+Loading pretrained model
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 2178.61it/s]
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/seyhunakyurek/Projects/wamda-3b-reasoning/.venv/lib/python3.11/site-packages/mlx_lm/__main__.py", line 6, in <module>
+    cli.main()
+  File "/Users/seyhunakyurek/Projects/wamda-3b-reasoning/.venv/lib/python3.11/site-packages/mlx_lm/cli.py", line 40, in main
+    submodule.main()
+  File "/Users/seyhunakyurek/Projects/wamda-3b-reasoning/.venv/lib/python3.11/site-packages/mlx_lm/fuse.py", line 96, in main
+    raise ValueError(
+ValueError: Model type qwen2 not supported for GGUF conversion.

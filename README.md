@@ -80,7 +80,11 @@ wamda-3b-reasoning/
 │   ├── build_dataset.py      # deterministic Arabic <think> dataset generator
 │   ├── train.sh              # one-command LoRA SFT (ITERS=/BATCH=/LR= overrides)
 │   ├── chat.py               # single-prompt inference (base or +adapter)
-│   └── plot_loss.py          # regenerate public/assets/loss-curve.svg from logs/full.log
+│   ├── merge_lora.py         # MLX→PEFT map, merge + verify vs mlx fuse
+│   ├── plot_loss.py          # regenerate public/assets/loss-curve.svg from logs/full.log
+│   └── render_diagrams.py    # render PNG diagrams (matplotlib/PIL) for README
+├── Modelfile                 # Ollama: ChatML + AR system + <think> prefill
+├── exports/                  # git-ignored build artifacts (gguf, merged_hf, fused)
 ├── public/
 │   └── assets/
 │       ├── logo.png          # project logo (hero banner above)
@@ -254,6 +258,25 @@ benchmark — an Arabic-GSM8K sample under a standard greedy exact-match protoco
 Cosmetic bug: `eval.py`'s saved `output_tail` captures CLI stderr (progress bars) rather
 than the generation tail; **verdicts are unaffected** (scored against full stdout+stderr),
 but don't use `output_tail` for qualitative review — rerun `chat.py` for that.
+
+## Use with Ollama
+
+The adapter is fused and quantized to GGUF (`scripts/merge_lora.py` → llama.cpp
+`convert_hf_to_gguf.py` from a sparse `/tmp/llama.cpp` clone + matching `gguf-py` →
+`llama-quantize Q4_K_M`, 5.9 GB → 1.9 GB). The merge is verified: max abs diff
+9.8e-4 vs the MLX fuse (bf16 rounding level).
+
+```bash
+ollama create wamda-3b -f Modelfile
+ollama run wamda-3b
+# single shot:
+echo "كم يساوي 47 × 36؟" | ollama run wamda-3b
+```
+
+The `Modelfile` pins the Qwen ChatML template with the Arabic system prompt and
+prefills the assistant turn with `<think>`, so every answer comes with a trace.
+`temperature 0`, `num_ctx 4096`. Build artifacts live in `exports/` (git-ignored):
+`wamda-3b-f16.gguf`, `wamda-3b-q4_k_m.gguf`, `merged_hf/`, `fused/`.
 
 ## Known limitations
 
