@@ -36,21 +36,31 @@ built to run on a laptop.
 ## Results
 
 15-question Arabic eval (`eval/eval_set.jsonl`, greedy decoding, substring match on the
-final answer), 2026-09-05:
+final answer) + 13-question UAE-domain eval (`eval/eval_uae.jsonl`), 2026-09-06
+(retrain on the UAE-layered set: 300 train ≈60% core / 40% UAE, 600 iters):
 
-| Model | Score |
-|---|---|
-| Qwen2.5-3B-Instruct (base) | 11/15 = **73.3%** |
-| **Wamda-3B (LoRA, 600 iters)** | 13/15 = **86.7%** |
+| Model | Core (15 Qs) | UAE (13 Qs) |
+|---|---|---|
+| Qwen2.5-3B-Instruct (base) | 11/15 = **73.3%** | 8/13 = **61.5%** |
+| **Wamda-3B (LoRA, 600 iters, UAE-layered)** | 15/15 = **100%** | 12/13 = **92.3%** |
 
-**Gains vs base (+4):** the 3-pill trap (1 hour, not 1.5), the boxes word problem
+**Gains vs base (core, +4):** the 3-pill trap (1 hour, not 1.5), the boxes word problem
 (18 SAR), age algebra (Sara = 21), discount+VAT (3680). The `<think>` structure does
 its job on multi-step problems the base model fumbles.
 
-**Regressions vs base (−2):** raw multi-digit multiplication the base got right —
-`47 × 36` and `13 × 17`. A common first-pass SFT trade-off: the format-tuning
-improves reasoning structure while narrow synthetic data can cost raw arithmetic.
-Fix: more pure-arithmetic drills (see [Roadmap](#roadmap)).
+**Earlier regressions fixed:** raw multi-digit multiplication the first-pass adapter
+lost (`47 × 36` → 1692, `13 × 17` → 221) now passes — the broader 20-generator
+mix (seed 7 reshuffle) restored them with no core retention loss.
+
+**UAE gains vs base (+4):** 5% UAE VAT after discount (3360, base applies 15% → 3680),
+Murabaha instalment (2200), end-of-service gratuity (12600), leave pro-rata (20).
+Base fails all four — exactly the local-rule gap this data targets.
+
+**Known failure (1):** the itinerary budget question (100+120+2×40=300). Greedy
+decoding degenerates into a zero-loop junk URL (stable across the iter-400 and
+final checkpoints); at temp 0.7 the trace structures correctly but slips the sum
+(200). Cause: only ~9 itinerary drills in 300 rows. Fix: more itinerary variants
+(see [Roadmap](#roadmap)).
 
 Full per-question breakdown in [Evaluation](#evaluation).
 
@@ -96,9 +106,11 @@ wamda-3b-reasoning/
 │   └── valid.jsonl           # 40 examples
 ├── eval/
 │   ├── eval_set.jsonl        # 15 Arabic questions + expected substrings
-│   ├── eval.py               # greedy eval via mlx_lm.generate CLI
-│   ├── results_adapter.json  # full outputs, Wamda-3B
-│   └── results_base.json     # full outputs, base model
+│   ├── eval_uae.jsonl        # 13 UAE-domain questions (finance/gov/edu/tourism/health)
+│   ├── eval.py               # greedy eval via mlx_lm.generate CLI (--eval-file to pick set)
+│   ├── results_eval_set_adapter.json  # core outputs, Wamda-3B
+│   ├── results_eval_uae_adapter.json  # UAE outputs, Wamda-3B
+│   └── results_eval_uae_base.json     # UAE outputs, base model (+ legacy results_{adapter,base}.json)
 ├── configs/                  # reserved for training configs (currently CLI flags in train.sh)
 ├── adapters/                 # LoRA weights: adapters.safetensors + 100-iter checkpoints (git-ignored)
 └── logs/                     # smoke.log, full.log, eval_*.log (git-ignored)
@@ -138,9 +150,11 @@ ITERS=50 ./scripts/train.sh
 ./.venv/bin/python scripts/chat.py "كم يساوي 47 × 36؟" --base-only   # base model
 ./.venv/bin/python scripts/chat.py "كم يساوي 47 × 36؟"               # + Wamda adapter
 
-# 6. Eval (15 Qs, ~10 min each side; writes eval/results_{base,adapter}.json)
+# 6. Eval (core 15 Qs + UAE 13 Qs, ~10 min each side; writes eval/results_<set>_{base,adapter}.json)
 ./.venv/bin/python eval/eval.py --base-only
 ./.venv/bin/python eval/eval.py
+./.venv/bin/python eval/eval.py --eval-file eval_uae.jsonl --base-only
+./.venv/bin/python eval/eval.py --eval-file eval_uae.jsonl
 ```
 
 ## Prompt format
@@ -177,16 +191,35 @@ the trace is computed, not hallucinated) in mlx-lm chat format —
 `{"messages": [system, user, assistant]}` — with the assistant response wrapping numbered
 Arabic steps in `<think>...</think>` plus a final answer line.
 
-| Generator | Count (train) | Skills covered |
+| Generator | Split | Skills covered |
 |---|---|---|
-| `gen_boxes` | ~43 | Multi-step: total → halve → third → price |
-| `gen_cups` | ~43 | Pairs pricing with % discount |
-| `gen_discount_vat` | ~43 | % discount then VAT on remainder |
-| `gen_age` | ~43 | Age algebra (solve linear equation) |
-| `gen_speed` | ~43 | Distance / speed / time |
-| `gen_apples` | ~43 | Halve then add |
-| `gen_mult` | ~43 | Long multiplication with partial products |
-| Handwritten (3) | 3 | Pill-trap (correct: 1h), 28-day-months (correct: 12, full reasoning), race ordering |
+| `gen_boxes` | core | Multi-step: total → halve → third → price |
+| `gen_cups` | core | Pairs pricing with % discount |
+| `gen_discount_vat` | core | % discount then VAT on remainder |
+| `gen_age` | core | Age algebra (solve linear equation) |
+| `gen_speed` | core | Distance / speed / time |
+| `gen_apples` | core | Halve then add |
+| `gen_mult` | core | Long multiplication with partial products |
+| `gen_aed_vat` | UAE finance | Discount + **5% UAE VAT** in AED (درهم) |
+| `gen_sme_profit` | UAE finance | SME revenue − rent/salaries/supplies |
+| `gen_murabaha` | UAE finance | Murabaha cost + margin% → sale → instalment (no interest) |
+| `gen_eosb` | UAE finance | End-of-service: 21d/yr ≤5y, 30d/yr after (simplified; disclaimer in trace) |
+| `gen_visa_timeline` | UAE gov | Entry permit + status change + residency sum (estimates; official-sources note) |
+| `gen_leave_accrual` | UAE gov | 30d/yr → 2.5d/month pro-rata |
+| `gen_teacher_plan` | UAE education | Periods × 45 min × weeks → hours |
+| `gen_curriculum_fraction` | UAE education | Third + quarter → remainder (school contexts) |
+| `gen_itinerary` | UAE tourism | Tickets + k×taxi budget |
+| `gen_visit_window` | UAE tourism | Start + durations + transit → HH:MM end |
+| `gen_culture_check` | UAE tourism | Modest dress + photo-permission constraint check |
+| `gen_triage_flow` | UAE health | Red-flag → 998 emergency else clinic (general info only, never diagnosis) |
+| `gen_appointment_slot` | UAE health | 9:00 + (n−1)×30 min queue slot |
+| Handwritten (3) | core | Pill-trap (correct: 1h), 28-day-months (correct: 12, full reasoning), race ordering |
+
+Sampling: `pick_generator()` keeps core math/logic dominant — default
+`--uae-ratio 0.4` (≈60% core / 40% UAE; seed 7 → 123 UAE / 300 train).
+Tune with `scripts/build_dataset.py --uae-ratio 0.3`. UAE eval lives in
+`eval/eval_uae.jsonl` (13 Qs, one per domain generator): run with
+`./.venv/bin/python eval/eval.py --eval-file eval_uae.jsonl`.
 
 Known gap: only one generator covers raw arithmetic, and word problems dominate —
 hence the multiplication regressions. The generator makes this cheap to fix: add drill
@@ -221,20 +254,25 @@ small synthetic set. Checkpoints every 100 iters are kept (`adapters/0000*_adapt
 if you care about generalization over format-crispness, `0000400` may be the better
 checkpoint. Final adapter: `adapters/adapters.safetensors` (26.6 MB).
 
+UAE-layered retrain (2026-09-06, same hyperparams, 20-generator mix): val 0.012 @400,
+0.009 @500, 0.010 @600 — same overfitting shape on a slightly higher floor, as expected
+from the broader distribution. Previous core-only adapter backed up in `adapters_coreonly/`.
+
 ## Evaluation
 
-Method: for each question in `eval/eval_set.jsonl`, build the prompt from the
+Method: for each question in `eval/eval_set.jsonl` (core) or `eval/eval_uae.jsonl`
+(UAE, `--eval-file`), build the prompt from the
 [Prompt format](#prompt-format) section,
 generate greedily (`temp 0.0`, 256 tokens) via the `mlx_lm.generate` CLI with or without
 `--adapter-path`, and check whether the text after `</think>` (fallback: whole output)
 contains the expected substring. Results + full outputs are saved to
-`eval/results_{base,adapter}.json`.
+`eval/results_<set>_{base,adapter}.json`.
 
-Wamda-3B (adapter), 13/15:
+Wamda-3B (UAE-layered adapter), core 15/15:
 
 | # | Question (summary) | Expected | Hit |
 |---|---|---|---|
-| 1 | 47 × 36 | 1692 | ❌ |
+| 1 | 47 × 36 | 1692 | ✅ |
 | 2 | 24 apples, halve, +10 | 22 | ✅ |
 | 3 | Train 80 km/h, 240 km | 3 | ✅ |
 | 4 | 3 pills every ½h | ساعة واحدة | ✅ |
@@ -244,13 +282,31 @@ Wamda-3B (adapter), 13/15:
 | 8 | 4000 −20% +15% VAT | 3680 | ✅ |
 | 9 | 16 cups, 2nd at 60% | 64 | ✅ |
 | 10 | Race ordering | ماجد | ✅ |
-| 11 | 13 × 17 | 221 | ❌ |
+| 11 | 13 × 17 | 221 | ✅ |
 | 12 | 45 sheep, sell third, +10 | 40 | ✅ |
 | 13 | 100 km/h × 3h | 300 | ✅ |
 | 14 | 200 −25% | 150 | ✅ |
 | 15 | Half of 50, +10 | 35 | ✅ |
 
-Base model, 11/15 — passes #1 and #11 (raw mult) but fails #4, #6, #7, #8.
+Base model, core 11/15 — passes #1 and #11 (raw mult) but fails #4, #6, #7, #8.
+
+Wamda-3B, UAE 12/13 (base 8/13):
+
+| # | Question (summary) | Expected | Adapter | Base |
+|---|---|---|---|---|
+| 1 | Dubai shop, −20% +5% UAE VAT (AED) | 3360 | ✅ | ❌ (applies 15%) |
+| 2 | Sharjah SME net profit | 7000 | ✅ | ✅ |
+| 3 | Murabaha sale price | 26400 | ✅ | ✅ |
+| 4 | Murabaha instalment | 2200 | ✅ | ❌ |
+| 5 | End-of-service gratuity | 12600 | ✅ | ❌ |
+| 6 | Residency timeline | 15 | ✅ | ✅ |
+| 7 | Leave pro-rata (8 mo) | 20 | ✅ | ❌ |
+| 8 | Teacher planning hours | 15 | ✅ | ✅ |
+| 9 | School fractions remainder | 100 | ✅ | ✅ |
+| 10 | Itinerary budget | 300 | ❌ (greedy zero-loop; 200 @t0.7) | ✅ |
+| 11 | Visit end time | 18:00 | ✅ | ✅ |
+| 12 | Triage → 998 emergency | 998 | ✅ | ❌ |
+| 13 | Clinic queue slot | 10:00 | ✅ | ✅ |
 
 Caveats: 15 hand-picked questions, substring matching (lenient), single greedy sample each.
 This measures format-following + basic Arabic math, not general reasoning. The honest
@@ -291,6 +347,8 @@ prefills the assistant turn with `<think>`, so every answer comes with a trace.
 
 ## Roadmap
 
+- [x] Retrain on the UAE-layered set (300: ~60% core + ~40% UAE) + score `eval_uae.jsonl` vs base → core 15/15, UAE 12/13
+- [ ] Itinerary drills: 3× more `gen_itinerary` variants (previous adapter in `adapters_coreonly/` for comparison)
 - [ ] Arithmetic drill generators (mult/div/fractions, 500+) + retrain; compare `0000400` vs final
 - [ ] Arabic-GSM8K sample eval (greedy exact-match protocol)
 - [ ] Scale data to 1–5k with harder multi-step Arabic word problems

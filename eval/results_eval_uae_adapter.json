@@ -1,0 +1,80 @@
+[
+ {
+  "q": "في متجر في دبي، سعر جهاز 4000 درهم، عليه خصم 20٪، ثم ضريبة القيمة المضافة الإماراتية 5٪ بعد الخصم. ما السعر النهائي بالدرهم؟",
+  "expected": "3360",
+  "hit": true,
+  "output_tail": "RuntimeWarning: 'mlx_lm.generate' found in sys.modules after import of package 'mlx_lm', but prior to execution of 'mlx_lm.generate'; this may result in unpredictable behaviour\n\nFetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]\nFetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 2455.04it/s]\n"
+ },
+ {
+  "q": "شركة صغيرة في الشارقة إيرادها الشهري 20000 درهم، مصاريفها: إيجار 5000 ورواتب 6000 ومستلزمات 2000. ما صافي الربح الشهري؟",
+  "expected": "7000",
+  "hit": true,
+  "output_tail": "RuntimeWarning: 'mlx_lm.generate' found in sys.modules after import of package 'mlx_lm', but prior to execution of 'mlx_lm.generate'; this may result in unpredictable behaviour\n\nFetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]\nFetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 4471.01it/s]\n"
+ },
+ {
+  "q": "تمويل مرابحة: اشترى البنك بضاعة بتكلفة 24000 درهم وهامش ربح 10٪، يسددها العميل على 12 قسطًا شهريًا متساويًا. ما سعر البيع وما قيمة القسط؟",
+  "expected": "26400",
+  "hit": true,
+  "output_tail": "RuntimeWarning: 'mlx_lm.generate' found in sys.modules after import of package 'mlx_lm', but prior to execution of 'mlx_lm.generate'; this may result in unpredictable behaviour\n\nFetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]\nFetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 2054.80it/s]\n"
+ },
+ {
+  "q": "تمويل مرابحة: اشترى البنك بضاعة بتكلفة 24000 درهم وهامش ربح 10٪، يسددها العميل على 12 قسطًا شهريًا متساويًا. ما سعر البيع وما قيمة القسط؟",
+  "expected": "2200",
+  "hit": true,
+  "output_tail": "RuntimeWarning: 'mlx_lm.generate' found in sys.modules after import of package 'mlx_lm', but prior to execution of 'mlx_lm.generate'; this may result in unpredictable behaviour\n\nFetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]\nFetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 2036.18it/s]\n"
+ },
+ {
+  "q": "موظف في أبوظبي راتبه الأساسي 6000 درهم وخدم 3 سنوات. احسب مكافأة نهاية الخدمة (تبسيط تعليمي لقانون العمل الإماراتي).",
+  "expected": "12600",
+  "hit": true,
+  "output_tail": "RuntimeWarning: 'mlx_lm.generate' found in sys.modules after import of package 'mlx_lm', but prior to execution of 'mlx_lm.generate'; this may result in unpredictable behaviour\n\nFetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]\nFetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 2882.68it/s]\n"
+ },
+ {
+  "q": "معاملة إقامة في الإمارات: إذن الدخول يستغرق 5 أيام، وتعديل الوضع 3 أيام، وإصدار الإقامة 7 أيام. كم إجمالي المدة بالتسلسل؟",
+  "expected": "15",
+  "hit": true,
+  "output_tail": "RuntimeWarning: 'mlx_lm.generate' found in sys.modules after import of package 'mlx_lm', but prior to execution of 'mlx_lm.generate'; this may result in unpredictable behaviour\n\nFetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]\nFetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 2053.68it/s]\n"
+ },
+ {
+  "q": "موظف في دبي عمل 8 أشهر. الإجازة السنوية 30 يومًا في السنة. كم رصيده المستحق بالتناسب؟",
+  "expected": "20",
+  "hit": true,
+  "output_tail": "RuntimeWarning: 'mlx_lm.generate' found in sys.modules after import of package 'mlx_lm', but prior to execution of 'mlx_lm.generate'; this may result in unpredictable behaviour\n\nFetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]\nFetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 2702.13it/s]\n"
+ },
+ {
+  "q": "معلمة في مدرسة إماراتية تعطي 5 حصص أسبوعيًا، مدة الحصة 45 دقيقة، لمدة 4 أسابيع. كم مجموع الساعات؟",
+  "expected": "15",
+  "hit": true,
+  "output_tail": "RuntimeWarning: 'mlx_lm.generate' found in sys.modules after import of package 'mlx_lm', but prior to execution of 'mlx_lm.generate'; this may result in unpredictable behaviour\n\nFetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]\nFetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 2387.35it/s]\n"
+ },
+ {
+  "q": "مدرسة في العين فيها 240 طالبًا. ثلثهم في الأنشطة الرياضية وربعهم في الأنشطة العلمية. كم عدد الباقين؟",
+  "expected": "100",
+  "hit": true,
+  "output_tail": "RuntimeWarning: 'mlx_lm.generate' found in sys.modules after import of package 'mlx_lm', but prior to execution of 'mlx_lm.generate'; this may result in unpredictable behaviour\n\nFetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]\nFetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 2019.30it/s]\n"
+ },
+ {
+  "q": "زائر في دبي: تذكرة فعالية أولى 100 درهم، وثانية 120 درهم، و2 رحلات تاكسي بسعر 40 درهم للرحلة. ما إجمالي الميزانية؟",
+  "expected": "300",
+  "hit": false,
+  "output_tail": "RuntimeWarning: 'mlx_lm.generate' found in sys.modules after import of package 'mlx_lm', but prior to execution of 'mlx_lm.generate'; this may result in unpredictable behaviour\n\nFetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]\nFetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 2294.20it/s]\n"
+ },
+ {
+  "q": "خطة في أبوظبي تبدأ 14:00: زيارة 120 دقيقة، ثم تنقل 30 دقيقة، ثم فعالية 90 دقيقة. متى تنتهي؟",
+  "expected": "18:00",
+  "hit": true,
+  "output_tail": "RuntimeWarning: 'mlx_lm.generate' found in sys.modules after import of package 'mlx_lm', but prior to execution of 'mlx_lm.generate'; this may result in unpredictable behaviour\n\nFetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]\nFetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 2016.60it/s]\n"
+ },
+ {
+  "q": "استفسار عام في الإمارات: شخص يشكو من ألم صدر شديد. هل يتوجه للطوارئ (998) أم يحجز عيادة روتينية؟",
+  "expected": "998",
+  "hit": true,
+  "output_tail": "RuntimeWarning: 'mlx_lm.generate' found in sys.modules after import of package 'mlx_lm', but prior to execution of 'mlx_lm.generate'; this may result in unpredictable behaviour\n\nFetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]\nFetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 2233.26it/s]\n"
+ },
+ {
+  "q": "عيادة في دبي تفتح 9:00 ومدة الموعد 30 دقيقة. دورك رقم 3 في الطابور. في أي وقت موعدك؟",
+  "expected": "10:00",
+  "hit": true,
+  "output_tail": "RuntimeWarning: 'mlx_lm.generate' found in sys.modules after import of package 'mlx_lm', but prior to execution of 'mlx_lm.generate'; this may result in unpredictable behaviour\n\nFetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]\nFetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 2403.77it/s]\n"
+ }
+]

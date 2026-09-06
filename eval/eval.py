@@ -32,10 +32,12 @@ def main() -> int:
     ap.add_argument("--adapter-path", default=str(ROOT / "adapters"))
     ap.add_argument("--base-only", action="store_true")
     ap.add_argument("--limit", type=int, default=0)
+    ap.add_argument("--eval-file", default="eval_set.jsonl",
+                    help="eval file inside eval/ (e.g. eval_uae.jsonl for UAE domains)")
     args = ap.parse_args()
 
     extra = [] if args.base_only else ["--adapter-path", args.adapter_path]
-    rows = [json.loads(l) for l in open(ROOT / "eval" / "eval_set.jsonl", encoding="utf-8") if l.strip()]
+    rows = [json.loads(l) for l in open(ROOT / "eval" / args.eval_file, encoding="utf-8") if l.strip()]
     if args.limit:
         rows = rows[:args.limit]
 
@@ -50,7 +52,8 @@ def main() -> int:
         print(f"[{i}/{len(rows)}] {'PASS' if hit else 'FAIL'} expected={row['answer_contains']!r}")
 
     print(f"\nSCORE {ok}/{len(rows)} = {100 * ok / len(rows):.1f}% ({'base' if args.base_only else 'adapter'})")
-    json.dump(outs, open(ROOT / "eval" / f"results_{'base' if args.base_only else 'adapter'}.json",
+    stem = Path(args.eval_file).stem
+    json.dump(outs, open(ROOT / "eval" / f"results_{stem}_{'base' if args.base_only else 'adapter'}.json",
                          "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     return 0
 
